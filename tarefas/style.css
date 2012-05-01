@@ -1,0 +1,11 @@
+body{
+		font-size:25px;
+	}
+	
+	a:link{text-decoration:none;color:#090}
+	a:visited{text-decoration:none;color:#090}
+	a:hover{text-decoration:none;color:#F03}
+	
+	#updown{
+		font-size:10px;
+	}
