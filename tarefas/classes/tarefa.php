@@ -1,6 +1,6 @@
 <?php
 include 'conexao.php';
-class Tarefa extends conexao{
+class Tarefa extends Conexao{
 
 	private $_id;
 	private $UsuarioID;

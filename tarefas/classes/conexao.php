@@ -1,6 +1,6 @@
 <?php
 class Conexao{
-	function __construct($banco = 'prioridades', $colecao = 'tarefas'){
+	public function __construct($banco = 'prioridades', $colecao = 'tarefas'){
 		$nome_banco      = $banco;
 		$nome_collection = $colecao;
 		
