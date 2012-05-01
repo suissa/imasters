@@ -45,21 +45,7 @@ $filter = array();
 $cursor = $Tarefa->listar($filter);
 $cursor->sort(array('Prioridade' => -1))->limit(41)->skip(0);
 
-foreach($cursor as $i => $item){
-	$btn_deletar = "<a href='?action=excluir&_id=$i'>x</a>";
-	$tarefa = "<a href='?_id=$i'>" . $item['Tarefa'] . "</a> ";
-	$controles = "<span id='updown'>[<a href='?action=alterarPrioridade&_id=$i&p=up'>▲</a>
-					   <a href='?action=alterarPrioridade&_id=$i&p=down'>▼</a>] 
-	$item[Prioridade]</span><br/>";
 
-	$tarefa_linha = "";
-	$tarefa_linha .= $btn_deletar;
-	$tarefa_linha .= " - ";
-	$tarefa_linha .= $tarefa;
-	$tarefa_linha .= $controles;
-
-	echo $tarefa_linha;
-}
 ?>
 
 <!DOCTYPE HTML>
@@ -70,22 +56,49 @@ foreach($cursor as $i => $item){
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	
+
+	<h1>TODO LIST</h1>
+
+	<section>
+
+
+		<form action='index.php' method='post'>
+			<label>Nova tarefa</label>
+		    <input type='text' id='Tarefa' name='Tarefa' />
+		    <input type='hidden' name='_id' value='<?php echo $_REQUEST['_id'];?>' />
+		    <input type='hidden' name='action' value='inserir' />
+		    <input type='submit' value='Inserir' />
+		</form>
+		<form action='index.php' method='post'>
+			<label>Alterar tarefa</label>
+		    <input type='text' id='Tarefa' name='Tarefa' value='<?=$tarefa?>' />
+		    <input type='hidden' name='_id' value='<?=$_REQUEST["_id"];?>' />
+		    <input type='hidden' name='action' value='alterar' />
+		    <input type='submit' value='Alterar' />
+		</form>
+
+		<ul id="tarefas-listagem">
+		<?php
+		$li_open = "<li>";
+		$li_close = "</li>";
+		foreach($cursor as $i => $item){
+			$btn_deletar = "<a href='?action=excluir&_id=$i'>x</a>";
+			$tarefa_nome = "<a href='?_id=$i'>" . $item['Tarefa'] . "</a> ";
+			$controles = "<span id='updown'>[<a href='?action=alterarPrioridade&_id=$i&p=up'>▲</a>
+							   <a href='?action=alterarPrioridade&_id=$i&p=down'>▼</a>] 
+			$item[Prioridade]</span><br/>";
+
+			$tarefa_linha = $li_open;
+			$tarefa_linha .= $btn_deletar;
+			$tarefa_linha .= " - ";
+			$tarefa_linha .= $tarefa_nome;
+			$tarefa_linha .= $controles;
+			$tarefa_linha .= $li_close;
+
+			echo $tarefa_linha;
+		}
+		?>
+	</ul>
+	</section>
 </body>
 </html>
-
-	<br/><br/>
-<form action='index.php' method='post'>
-	<label>Nova tarefa</label>
-    <input type='text' id='Tarefa' name='Tarefa' />
-    <input type='hidden' name='_id' value='<?php echo $_REQUEST['_id'];?>' />
-    <input type='hidden' name='action' value='inserir' />
-    <input type='submit' value='Inserir' />
-</form>
-<form action='index.php' method='post'>
-	<label>Alterar tarefa</label>
-    <input type='text' id='Tarefa' name='Tarefa' value='<?=$tarefa?>' />
-    <input type='hidden' name='_id' value='<?php echo $_REQUEST['_id'];?>' />
-    <input type='hidden' name='action' value='alterar' />
-    <input type='submit' value='Alterar' />
-</form>
